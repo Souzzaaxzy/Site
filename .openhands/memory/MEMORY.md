@@ -1,55 +1,78 @@
-# Memória do projeto — Vetheryon
+# Memória do projeto — Site do Tempero de Mãe
 
 Índice de fatos duráveis. O detalhe longo fica nos logs diários (`YYYY-MM-DD.md`).
+As notas de um projeto anterior que veio neste workspace estão em
+`notas-projeto-anterior-vetheryon.md`.
 
 ## Repositório
-- **Vetheryon** — jogo 3D medieval de fantasia, **Godot 4.7.2** (GDScript,
-  renderizador Mobile), alvo Android. Repo `Souzzaaxzy/Vetheryon`.
-- Clone do workspace é **shallow** e **NÃO tem toolchain**. Para rodar/testar/
-  exportar é preciso instalar (ver log `2026-11-05.md`): Godot 4.7.2, export
-  templates, `openjdk-21-jdk-headless`, Android cmdline-tools 11076708 +
-  platform-tools/android-35/build-tools 35.0.0, `xvfb`, `unzip`.
-- `$HOME/.config/godot/editor_settings-4.7.tres` aponta SDK/JDK/keystore.
-  **Não** exportar `XDG_*` para fora do HOME (Godot acha templates em
-  `$HOME/.local/share/godot/export_templates`).
 
-## Arquitetura do mundo (o coração do jogo)
-- `src/world/vetheryon_world.gd` — mundo **infinito por chunks**, gerado em
-  runtime com o addon `addons/lowland_forge` (MIT): `LFTerrainGenerator` +
-  `LFChunkData` + `LFPropMeshes`. Chunk = `LFTileBaker.BLOCK` (128 m = 4x4
-  sub-chunks de 32 m). 1 chunk montado por frame; o que passa de `KEEP_RADIUS`
-  é liberado; ao voltar, **regenera igual** (mesma seed). Sem arquivos assados.
-- **NÃO usar `WorkerThreadPool` por Task ID** (`is_task_completed` → "Invalid
-  Task ID" em loop nesta versão). O padrão que funciona: `Mutex` + fila
-  `_results`; a thread gera e faz lock/append/unlock; o thread principal drena.
-- Tela inicial: `src/ui/start_screen.gd`. `CenterContainer` não centraliza
-  `Panel` (size 0x0) → usar `PanelContainer`.
-- Testes visuais: `xvfb-run ... godot --path <repo> --rendering-driver opengl3
-  --script res://tools/<x>.gd` (`extends SceneTree`). `tools/test_inf.gd` valida
-  o streaming (chunks perto/longe/volta).
+- **Site do Tempero de Mãe** — website comercial (React 19 + TypeScript + Vite 7
+  + Tailwind 4) do restaurante/marmitaria **Tempero de Mãe**, Rua Criseida 311A,
+  Jardim Cris, São Paulo. Repo `Souzzaaxzy/Site` (público, branch `main`).
+- Publicado no GitHub Pages: <https://souzzaaxzy.github.io/Site/> via
+  `.github/workflows/pages.yml`.
+- **`base: './'` + `src/lib/asset.ts` são obrigatórios**: o site roda sob o
+  subcaminho `/Site/`, então qualquer caminho absoluto (`/img/…`, ícones do
+  manifest) dá 404 no Pages. Usar o helper `asset()`.
+- Todas as informações comerciais ficam em `src/data/business.ts`; nenhum
+  componente contém dado comercial solto.
 
-## CI / entrega
-- `.github/workflows/build-apk.yml` builda o APK debug e publica **release
-  rolante** tag `latest`. Link fixo:
-  `https://github.com/Souzzaaxzy/Vetheryon/releases/download/latest/vetheryon.apk`.
-- APK hoje ~37 MB (era 78 MB com o mapa pré-assado de 34 MB).
+## Estado dos dados comerciais (nada inventado)
 
-## Push / credenciais (igual aos outros repos deste usuário)
-- `git push origin main` **falha 403** (credencial velha no remote). Empurre
-  explícito:
-  `git push "https://${GITHUB_PERSONAL_ACCESS_TOKEN}@github.com/Souzzaaxzy/Vetheryon.git" main`.
-- `$GITHUB_TOKEN` é token de App = **somente leitura**. Use
-  `$GITHUB_PERSONAL_ACCESS_TOKEN` para escrever. O dono autoriza push na main.
+- **Confirmado**: nome, endereço (Maps), segmento, "+7 anos", slogan
+  "A culinária da Memória e do Afeto", Instagram `@temperodmae`, Linktree.
+- **Não confirmado, publicado só como aviso no rodapé**: preços de nov/2023
+  (marmita 20, panquecas 35, xis 25), WhatsApp, horário, canal de pedidos.
+- **Ambiguidade que não pode ser ignorada**: o Linktree aponta para
+  `temperodemae.grandchef.com.br`, que se diz "Restaurante e **Pizzaria**" — o
+  Maps não menciona pizzaria. O cardápio do Toop cita entregas em **Santa Rosa
+  (RS)**, mas o Maps é São Paulo/SP. Confirmar antes de tratar como oficial.
+- **Fotos reais dos 4 pratos** e o **logo** vieram de
+  `files.nextgocard.com.br/` (plataforma do cardápio Toop). O logo tem fundo
+  transparente e é a fonte da paleta.
 
-## Recuperar trabalho de conversa morta (context length)
-- `GET /api/v1/app-conversations?ids=<id>` (Bearer `$OPENHANDS_API_KEY`) →
-  `conversation_url` + `session_api_key`; depois
-  `GET {conversation_url}/api/conversations/<id>/events/search?...` com
-  `X-Session-API-Key`. As edições (`file_editor`) ficam em `ActionEvent.action`
-  e permitem **reconstruir o arquivo final** (create + str_replace em ordem).
+## Identidade visual
+
+Direção "Mesa de Casa": papel creme `oklch(96.5% 0.01 82)`, tinta café, terracota
+`oklch(53.4% 0.148 34.7)` como ação, oliva em detalhe. **Fraunces** (serifada
+variável) para títulos e **Instrument Sans** para texto, ambas self-hosted em
+`public/fonts/`. Sem gradiente, sem glassmorphism, sem cards empilhados — o
+cardápio é um menu impresso com líderes de preço pontilhados.
+
+## Skills de frontend
+
+Seis skills em `.agents/skills/` (não versionadas; ver `docs/skills.md` para
+reinstalar): `frontend-design`, `hallmark`, `taste-skill`, `impeccable`,
+`frontend-ui-engineering`, `web-design-guidelines`.
+
+- **`hallmark` é o cavalo de batalha**: `sloplint.mjs` roda gates mecânicos de
+  direção de arte e tem camada de render em navegador real (`--render --url`).
+  A meta é `0 FAIL, 0 WARN`. Ele também fornece uma biblioteca de fotos do
+  Wikimedia Commons já com licença e crédito (`theme.mjs photos … --save <dir>`).
+- **Chromium no contêiner exige `--no-sandbox`**: criar wrapper em
+  `/tmp/chromium-nosandbox` e exportar `CHROME_PATH`; nunca editar os scripts
+  das skills.
+- `taste-skill` é para páginas de 3 telas; num site de 8 seções várias regras
+  dele (`one-section`, `section-height`, `no-visual`) apontam diferença de
+  escopo, não defeito. Rodar com `--quick --no-slow --no-tiles`.
+- **Nesta sessão não consigo ler screenshots.** Para inspeção visual, usar
+  medições de geometria no DOM via puppeteer, contraste computado com
+  normalização por canvas, e ASCII-art via PIL.
+
+## Verificação (rodar antes de considerar pronto)
+
+```bash
+npx tsc -b --noEmit && npx vite build
+npx vite preview --port 4173 &
+CHROME_PATH=/tmp/chromium-nosandbox node .agents/skills/hallmark/scripts/sloplint.mjs \
+  src index.html --genre editorial --scope page --render --url http://127.0.0.1:4173/
+```
+
+Checar também: contraste WCAG AA, ausência de rolagem horizontal de 320 a
+1920px, zero requisições 404, e o menu mobile abrindo.
 
 ## Logs
-- `2026-11-05.md` — retomada da conversa `8741d4fc…` (morreu por context
-  length); instalação da toolchain do zero; reconstrução do `vetheryon_world.gd`
-  a partir dos eventos; bug do WorkerThreadPool; centralização do botão; limpeza
-  do mapa pré-assado; push e CI verdes.
+
+- `2026-11-05.md` — instalação das 6 skills, pesquisa do estabelecimento
+  (incluindo a ambiguidade GrandChef/Toop), direção de arte, build do site,
+  publicação no Pages e as armadilhas de subcaminho.
