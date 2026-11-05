@@ -74,6 +74,18 @@ As fotos dos quatro pratos são do próprio estabelecimento, obtidas nos canais
 oficiais. As fotos de preparo são do Wikimedia Commons, sob licença Creative
 Commons, creditadas no rodapé do site.
 
+## Publicação
+
+O workflow `.github/workflows/pages.yml` roda typecheck, builda e publica no
+GitHub Pages a cada push na `main`. O site fica em
+`https://souzzaaxzy.github.io/Site/`.
+
+O build usa `base: './'` e o helper `src/lib/asset.ts`, então o mesmo `dist/`
+serve tanto a raiz de um domínio quanto um subcaminho de projeto. Para publicar
+em domínio próprio, troque `base` em `vite.config.ts` e atualize as URLs
+absolutas de `index.html` (canonical, `og:url`, `og:image`) e de
+`src/components/StructuredData.tsx`.
+
 ## Antes de publicar
 
 O rodapé lista, na seção "Informações a confirmar", tudo que ainda depende do
