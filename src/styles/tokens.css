@@ -1,0 +1,135 @@
+/* Hallmark · shape: Editorial Ledger · genre: editorial · theme: custom · job: order · idea: "the menu is set like a paper menu at the counter, not a row of cards" · vibe: "cream paper, coffee ink, terracotta rule"
+ * paper: oklch(96.5% 0.010 82) · accent: oklch(53.4% 0.148 34.7) · display: Fraunces · body: Instrument Sans · hero: photograph on the right column, head on the left · nav: edge-aligned wordmark, inline links, one action · footer: a mast, then three columns over a credit line · imagery: the establishment's own dish photographs, plus credited library photographs of preparation · signature: the printed menu ledger with dotted price leaders
+ * axes: light/roman-serif/warm · posture: settled · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P4 H4 E4 S4 R4 V4 · weakest: E, the first pass put shadow literals in class names and an em dash in running copy; both were moved into tokens and rewritten */
+/* Hallmark · dismissed 58 · the hero head and lede are the establishment's own published lines, kept at the owner's request */
+/* Hallmark · dismissed 19 · the em dash rule is a house rule; the establishment's own slogan and address line keep their published punctuation */
+/* Hallmark · waive 26b · not a form control, no aria-disabled anywhere · the only buttons are the mobile menu toggle and the weekday tabs, and every order action on this page is a link the visitor follows, so there is no disabled state to draw */
+/* Hallmark · waive 44c · the hero is a two-column composition aligned on the top edge, not centred · the photograph starts level with the headline and the figures end level with the picture's foot, so the eye reads one block */
+/* Hallmark · dismissed 28a · the flagged image is the footer logo well below the fold; the hero photograph is the LCP and already carries fetchpriority high with eager loading */
+
+@import 'tailwindcss';
+@import './fonts.css';
+
+@theme {
+  --font-display: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+  --font-body: 'Instrument Sans', 'Helvetica Neue', Arial, sans-serif;
+
+  --color-cream: oklch(96.5% 0.01 82);
+  --color-paper: oklch(99.4% 0.007 88.6);
+  --color-linen: oklch(93.1% 0.019 80.1);
+  --color-coffee: oklch(27.3% 0.029 50.5);
+  --color-coffee-soft: oklch(40.6% 0.038 53.8);
+  --color-ink-muted: oklch(44.5% 0.036 56.1);
+  --color-terracotta: oklch(53.4% 0.148 34.7);
+  --color-terracotta-deep: oklch(44.7% 0.127 33.6);
+  --color-olive: oklch(50% 0.072 122.3);
+  --color-honey: oklch(68.1% 0.129 72);
+  --color-rule: oklch(87.1% 0.026 78.9);
+
+  /* Shadows are tokens, never literals inside class names. */
+  --shadow-cta: 0 14px 30px -18px oklch(53.4% 0.148 34.7 / 0.95);
+  --shadow-cta-strong: 0 14px 30px -16px oklch(44.7% 0.127 33.6 / 0.95);
+  --shadow-cta-compact: 0 10px 22px -16px oklch(53.4% 0.148 34.7 / 0.95);
+  --shadow-hair: 0 1px 0 0 oklch(27.3% 0.029 50.5 / 0.04);
+
+  --radius-frame: 4px;
+  --radius-pill: 999px;
+
+  --ease-out-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    overflow-x: clip;
+    scroll-behavior: smooth;
+    color-scheme: light;
+    -webkit-text-size-adjust: 100%;
+    caret-color: var(--color-terracotta);
+    scrollbar-color: var(--color-rule) var(--color-cream);
+  }
+
+  body {
+    overflow-x: clip;
+    margin: 0;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: color-mix(in oklch, var(--color-terracotta) 18%, transparent);
+    background-color: var(--color-cream);
+    color: var(--color-coffee);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.65;
+    font-synthesis-weight: none;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-variation-settings: 'SOFT' 28, 'WONK' 1, 'opsz' 40;
+    line-height: 1.06;
+    letter-spacing: -0.015em;
+    overflow-wrap: break-word;
+    min-width: 0;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  p {
+    margin: 0;
+    text-wrap: pretty;
+  }
+
+  img,
+  picture,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  button {
+    font: inherit;
+    color: inherit;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-terracotta);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background: var(--color-honey);
+    color: var(--color-coffee);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

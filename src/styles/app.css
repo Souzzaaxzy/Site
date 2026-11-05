@@ -1,0 +1,42 @@
+/* Behaviour that Tailwind utilities cannot express: the mobile order bar and
+   the single entrance on the hero photograph. */
+
+@keyframes hero-enter {
+  from {
+    opacity: 0;
+    transform: scale(1.04);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero-enter {
+  animation: hero-enter 900ms var(--ease-out-expo) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-enter {
+    animation: none;
+  }
+}
+
+.mobile-order-bar {
+  transform: translateY(110%);
+  transition: transform 340ms var(--ease-out-expo);
+}
+
+.mobile-order-bar[data-visible='true'] {
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-order-bar {
+    transition: none;
+  }
+}
+
+iframe {
+  color-scheme: light;
+}

@@ -1,0 +1,29 @@
+# Dependências
+node_modules/
+
+# Build
+dist/
+dist-ssr/
+
+# Cache de ferramentas
+.vite/
+*.tsbuildinfo
+
+# Ambiente
+.env
+.env.*
+!.env.example
+
+# Sistema operacional e editores
+.DS_Store
+Thumbs.db
+*.log
+
+# Capturas e registros de revisão visual (gerados pelos linters das skills)
+.hallmark/shots/
+.hallmark/before/
+
+# As skills são ferramentas do ambiente, não código do site. O conteúdo delas
+# (cerca de 46 MB, licenças MIT/CC de terceiros) fica fora do repositório.
+# Veja `docs/skills.md` para reinstalá-las.
+.agents/skills/

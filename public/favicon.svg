@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Tempero de Mãe">
+  <rect width="64" height="64" rx="8" fill="#F7F3EC"/>
+  <path d="M32 9c8 0 14 4 17 10 3 6 2 13-2 18-4 5-10 8-15 9-5 1-9-1-11-5-2-4-1-9 2-13 3-4 6-7 6-11 0-3-2-5-4-6 2-1 5-2 7-2z" fill="#B2452B"/>
+  <path d="M20 46h24M24 52h16" stroke="#33231A" stroke-width="2.6" stroke-linecap="round"/>
+</svg>

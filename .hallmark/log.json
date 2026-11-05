@@ -1,0 +1,36 @@
+[
+ {
+  "shape": "Editorial Ledger",
+  "theme": "custom",
+  "axes": "light/roman-serif/warm",
+  "hero": "two columns, photograph right",
+  "nav": "edge-aligned wordmark, inline links, one action",
+  "footer": "mast over three columns and a credit line",
+  "imagery": "establishment dish photographs plus credited library preparation shots",
+  "photos": [
+   "Baker_woman%27s_hands_kneading_bread_dough.jpg",
+   "Taipei_Taiwan_Jiaozi-Restaurant-14th-avenue-01.jpg",
+   "Kneading_Chapati_Dough_04.jpg"
+  ],
+  "entry": "tempero-de-mae-site",
+  "fingerprint": "editorial-ledger",
+  "sections": [
+   "Hero",
+   "About",
+   "Menu",
+   "DailyMenu",
+   "Delivery",
+   "Differentials",
+   "Location",
+   "Footer"
+  ],
+  "signature": "the printed menu ledger with dotted price leaders",
+  "waived": [
+   "26b",
+   "44c"
+  ],
+  "prompt": "Tempero de Mãe restaurant website, São Paulo",
+  "date": "2026-11-05",
+  "mode": "build"
+ }
+]
