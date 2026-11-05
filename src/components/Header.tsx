@@ -1,6 +1,7 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import { Menu, X, Phone } from 'lucide-react'
 import { business } from '../data/business'
+import { asset } from '../lib/asset'
 import { primaryOrderHref } from '../lib/format'
 import { navItems, useActiveSection, useScrolled } from '../lib/useActiveSection'
 
@@ -42,7 +43,7 @@ export function Header() {
           aria-label={`${business.name}, início`}
         >
           <img
-            src="/img/logo-tempero-96.png"
+            src={asset('/img/logo-tempero-96.png')}
             alt=""
             width={40}
             height={33}

@@ -1,4 +1,5 @@
 import type { CSSProperties, ReactNode } from 'react'
+import { asset } from '../lib/asset'
 
 interface PictureProps {
   /** Path without extension or width suffix, e.g. `/img/hero-tempero`. */
@@ -35,15 +36,15 @@ export function Picture({
 }: PictureProps) {
   const sorted = [...widths].sort((a, b) => a - b)
   const largest = sorted[sorted.length - 1]
-  const webpSet = sorted.map((w) => `${base}-${w}.webp ${w}w`).join(', ')
-  const jpgSet = sorted.map((w) => `${base}-${w}.jpg ${w}w`).join(', ')
+  const webpSet = sorted.map((w) => `${asset(`${base}-${w}.webp`)} ${w}w`).join(', ')
+  const jpgSet = sorted.map((w) => `${asset(`${base}-${w}.jpg`)} ${w}w`).join(', ')
 
   return (
     <div className={className} style={{ aspectRatio: ratio, ...style }}>
       <picture>
         <source type="image/webp" srcSet={webpSet} sizes={sizes} />
         <img
-          src={`${base}-${largest}.jpg`}
+          src={asset(`${base}-${largest}.jpg`)}
           srcSet={jpgSet}
           sizes={sizes}
           alt={alt}

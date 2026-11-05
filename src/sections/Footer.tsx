@@ -2,6 +2,7 @@ import { Instagram, Link2, MapPin, MessageCircle } from 'lucide-react'
 import { business, photoCredits, unconfirmedNotes } from '../data/business'
 import { primaryOrderHref, whatsappHref } from '../lib/format'
 import { navItems } from '../lib/useActiveSection'
+import { asset } from '../lib/asset'
 
 const year = new Date().getFullYear()
 
@@ -17,7 +18,7 @@ export function Footer() {
           <div>
             <div className="flex items-center gap-3">
               <img
-                src="/img/logo-tempero-96.png"
+                src={asset('/img/logo-tempero-96.png')}
                 alt=""
                 width={48}
                 height={39}
